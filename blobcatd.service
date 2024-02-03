@@ -1,0 +1,8 @@
+[Unit]
+Description=a systemd service for blobcatd
+
+[Service]
+ExecStart=blobcatd
+
+[Install]
+WantedBy=default.target
