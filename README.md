@@ -63,9 +63,9 @@ go to `.config/blobcatd`. create a folder, name it after your character. put a b
 
 ## credits
 
-[@lewdum](https://heckin.how/@lewdum) for making me come up with the idea
-[@esm](https://wetdry.world/@esm) for conveniently storing emojis on wetdry.world
-[@volpeon](https://is-a.wyvern.rip/@volpeon) for most of the emojis
-myself, [@gravitos](https://wetdry.world/@gravitos) for the blobcat with a laptop emoji and the code
+- [@lewdum](https://heckin.how/@lewdum) for making me come up with the idea
+- [@esm](https://wetdry.world/@esm) for conveniently storing emojis on wetdry.world
+- [@volpeon](https://is-a.wyvern.rip/@volpeon) for most of the emojis
+- myself, [@gravitos](https://wetdry.world/@gravitos) for the blobcat with a laptop emoji and the code
 
 feel free to fork and/or contribute
