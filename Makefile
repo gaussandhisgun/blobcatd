@@ -1,6 +1,7 @@
 all: 
 	echo 'this is a bash script, you either `make install` or `make uninstall` it'
 install:
+	chmod a+x ./blobcatd
 	sudo cp "./blobcatd" "/usr/bin/blobcatd"
 	cp -R "./config/blobcatd" "${HOME}/.config/blobcatd"
 	if [ -d "${HOME}/.config/systemd" ]; then echo "systemd found"; cp -R "./blobcatd.service" "${HOME}/.config/systemd/user"; fi
