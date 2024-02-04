@@ -67,5 +67,6 @@ go to `.config/blobcatd`. create a folder, name it after your character. put a b
 - [@esm](https://wetdry.world/@esm) for conveniently storing emojis on wetdry.world
 - [@volpeon](https://is-a.wyvern.rip/@volpeon) for most of the emojis
 - myself, [@gravitos](https://wetdry.world/@gravitos) for the blobcat with a laptop emoji and the code
+- everyone who sent a PR into here, even if it was not merged
 
 feel free to fork and/or contribute
