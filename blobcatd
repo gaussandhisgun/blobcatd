@@ -27,14 +27,8 @@ loop () {
     done
 }
 
-runtype=loop
- 
-# commandline option stuff
-while getopts ":c:C:ohvt:" flag
-do
-case ${flag} in
-# help!
-h) cat << NYAOF
+help () {
+    cat << NYAOF
 		blobcatd		- by gravitos
 
 inspired in this post: https://wetdry.world/@gravitos/111063551410060977
@@ -52,22 +46,37 @@ args:
 	-t	wait time between each notifications
 		(Pause for NUMBER seconds.  SUFFIX may be 's' for seconds (the default), 'm' for minutes, 'h' for hours or 'd' for days. NUMBER need not be an integer. Given two or more arguments, pause for the amount of time specified by the sum of their values.) - man sleep
 NYAOF
-exit
-;;
-# do you want to use a blobfox
-c) character=${OPTARG};;
-C) CONFIG_DIR=${OPTARG};;
-o) runtype=oneshot;;
-# version
-v) echo "blobcatd version ${VERSION}"
-exit;;
-# wait time
-t) export TIME=${OPTARG};;
-# and the other stuff
-?) echo "invalid option: ${flag}"
-exit;;
+}
 
-esac
-done
+main() {
+    runtype=loop
+    
+    # commandline option stuff
+    local flag
+    while getopts ":c:C:ohvt:" flag
+    do
+    case ${flag} in
+    # help!
+    h) help
+    exit
+    ;;
+    # do you want to use a blobfox
+    c) character=${OPTARG};;
+    C) CONFIG_DIR=${OPTARG};;
+    o) runtype=oneshot;;
+    # version
+    v) echo "blobcatd version ${VERSION}"
+    exit;;
+    # wait time
+    t) export TIME=${OPTARG};;
+    # and the other stuff
+    ?) echo "invalid option: ${flag}"
+    exit;;
 
-$($runtype)
+    esac
+    done
+
+    $($runtype)
+}
+
+main "$@"
