@@ -4,8 +4,10 @@ VERSION="blobcatd 0.1"
 character="cat"
 TIME=60s
 
+CONFIG_DIR="$HOME/.config/blobcatd"
+ 
 # commandline option stuff
-while getopts ":c:hvt:" flag
+while getopts ":c:C:hvt:" flag
 do
 case ${flag} in
 # help!
@@ -15,6 +17,7 @@ echo -e "\n\nversion ${VERSION}\n\n"
 echo -e "args:"
 echo -e "\t-h\tthis"
 echo -e "\t-c\tchoose your fighter- i mean, character. these are stored in ~/.config/blobcatd"
+echo -e "\t-C\tspecify config dir"
 echo -e "\t-v\tget version"
 echo -e "\t-t\twait time between each notifications"
 echo -e "\t\t(Pause for NUMBER seconds.  SUFFIX may be 's' for seconds (the default), 'm' for minutes, 'h' for hours or 'd' for days. NUMBER need not be an integer. Given two or more arguments, pause for the amount of time specified by the sum of their values.) - man sleep"
@@ -22,6 +25,7 @@ exit
 ;;
 # do you want to use a blobfox
 c) character=${OPTARG};;
+C) CONFIG_DIR=${OPTARG};;
 # version
 v) echo "blobcatd version ${VERSION}"
 exit;;
@@ -37,11 +41,11 @@ done
 # this is a *daemon*, by design, so it should never stop?
 while true; do
 # get a list of strings
-strings="$(grep -Ev '^$' ~/.config/blobcatd/${character}/strings)"
+strings="$(grep -Ev '^$' $CONFIG_DIR/${character}/strings)"
 # get one string out of it
 message=$(echo "$strings" | shuf -n 1)
 # pick an image
-image=$(find "$HOME/.config/blobcatd/${character}" -type f -exec file --mime-type {} \+ | awk -F: '{if ($2 ~/image\//) print $1}' | shuf -n 1)
+image=$(find "$CONFIG_DIR/${character}" -type f -exec file --mime-type {} \+ | awk -F: '{if ($2 ~/image\//) print $1}' | shuf -n 1)
 
 # and send a notification
 notify-send -a blobcatd -i "${image}" "blobcatd" "${message}"
