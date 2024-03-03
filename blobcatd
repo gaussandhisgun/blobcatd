@@ -1,6 +1,6 @@
 #!/bin/bash
 # some vars and defaults
-VERSION="blobcatd 0.1"
+VERSION="0.1"
 character="cat"
 TIME=60s
 
@@ -11,16 +11,23 @@ while getopts ":c:C:hvt:" flag
 do
 case ${flag} in
 # help!
-h) echo -e "\t\tblobcatd\t\t- by gravitos"
-echo -e "\n\ninspired in this post: https://wetdry.world/@gravitos/111063551410060977"
-echo -e "\n\nversion ${VERSION}\n\n"
-echo -e "args:"
-echo -e "\t-h\tthis"
-echo -e "\t-c\tchoose your fighter- i mean, character. these are stored in ~/.config/blobcatd"
-echo -e "\t-C\tspecify config dir"
-echo -e "\t-v\tget version"
-echo -e "\t-t\twait time between each notifications"
-echo -e "\t\t(Pause for NUMBER seconds.  SUFFIX may be 's' for seconds (the default), 'm' for minutes, 'h' for hours or 'd' for days. NUMBER need not be an integer. Given two or more arguments, pause for the amount of time specified by the sum of their values.) - man sleep"
+h) cat << NYAOF
+		blobcatd		- by gravitos
+
+inspired in this post: https://wetdry.world/@gravitos/111063551410060977
+
+
+version ${VERSION}
+
+
+args:
+	-h	this
+	-c	choose your fighter- i mean, character. these are stored in ~/.config/blobcatd
+	-C	specify config dir
+	-v	get version
+	-t	wait time between each notifications
+		(Pause for NUMBER seconds.  SUFFIX may be 's' for seconds (the default), 'm' for minutes, 'h' for hours or 'd' for days. NUMBER need not be an integer. Given two or more arguments, pause for the amount of time specified by the sum of their values.) - man sleep
+NYAOF
 exit
 ;;
 # do you want to use a blobfox
