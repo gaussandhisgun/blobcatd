@@ -5,9 +5,32 @@ character="cat"
 TIME=60s
 
 CONFIG_DIR="$HOME/.config/blobcatd"
+
+
+oneshot () {
+    # get a list of strings
+    strings="$(grep -Ev '^$' $CONFIG_DIR/${character}/strings)"
+    # get one string out of it
+    message=$(echo "$strings" | shuf -n 1)
+    # pick an image
+    image=$(find "$CONFIG_DIR/${character}" -type f -exec file --mime-type {} \+ | awk -F: '{if ($2 ~/image\//) print $1}' | shuf -n 1)
+    # and send a notification
+    notify-send -a blobcatd -i "${image}" "blobcatd" "${message}"
+}
+
+loop () {
+    # this is a *daemon*, by design, so it should never stop?
+    while true; do
+    oneshot
+
+    sleep "${TIME}"
+    done
+}
+
+runtype=loop
  
 # commandline option stuff
-while getopts ":c:C:hvt:" flag
+while getopts ":c:C:ohvt:" flag
 do
 case ${flag} in
 # help!
@@ -24,6 +47,7 @@ args:
 	-h	this
 	-c	choose your fighter- i mean, character. these are stored in ~/.config/blobcatd
 	-C	specify config dir
+    -o	run only once (useful when using with cron or other timers)
 	-v	get version
 	-t	wait time between each notifications
 		(Pause for NUMBER seconds.  SUFFIX may be 's' for seconds (the default), 'm' for minutes, 'h' for hours or 'd' for days. NUMBER need not be an integer. Given two or more arguments, pause for the amount of time specified by the sum of their values.) - man sleep
@@ -33,6 +57,7 @@ exit
 # do you want to use a blobfox
 c) character=${OPTARG};;
 C) CONFIG_DIR=${OPTARG};;
+o) runtype=oneshot;;
 # version
 v) echo "blobcatd version ${VERSION}"
 exit;;
@@ -45,17 +70,4 @@ exit;;
 esac
 done
 
-# this is a *daemon*, by design, so it should never stop?
-while true; do
-# get a list of strings
-strings="$(grep -Ev '^$' $CONFIG_DIR/${character}/strings)"
-# get one string out of it
-message=$(echo "$strings" | shuf -n 1)
-# pick an image
-image=$(find "$CONFIG_DIR/${character}" -type f -exec file --mime-type {} \+ | awk -F: '{if ($2 ~/image\//) print $1}' | shuf -n 1)
-
-# and send a notification
-notify-send -a blobcatd -i "${image}" "blobcatd" "${message}"
-
-sleep "${TIME}"
-done
+$($runtype)
