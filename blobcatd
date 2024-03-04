@@ -41,7 +41,7 @@ args:
 	-h	this
 	-c	choose your fighter- i mean, character. these are stored in ~/.config/blobcatd
 	-C	specify config dir
-    -o	run only once (useful when using with cron or other timers)
+	-o	run only once (useful when using with cron or other timers)
 	-v	get version
 	-t	wait time between each notifications
 		(Pause for NUMBER seconds.  SUFFIX may be 's' for seconds (the default), 'm' for minutes, 'h' for hours or 'd' for days. NUMBER need not be an integer. Given two or more arguments, pause for the amount of time specified by the sum of their values.) - man sleep
